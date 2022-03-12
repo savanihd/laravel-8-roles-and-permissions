@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -14,12 +15,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('users')->delete();
-        
+
         \DB::table('users')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 3,
                 'name' => 'Hardik Savani',
@@ -30,7 +31,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2021-03-26 06:15:46',
                 'updated_at' => '2021-03-26 06:15:46',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 4,
                 'name' => 'Muhammad Lutfhi Azzammi',
@@ -41,7 +42,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2021-03-26 06:23:12',
                 'updated_at' => '2021-03-26 06:23:12',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 5,
                 'name' => 'Amir Bowman',
@@ -53,7 +54,14 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2021-03-26 06:49:28',
             ),
         ));
-        
-        
+
+        $admin_user = User::find(3);
+        $admin_user->assignRole('administrator');
+
+        $user_user = User::find(4);
+        $user_user->assignRole('user');
+
+        $guest_user = User::find(5);
+        $guest_user->assignRole('guest');
     }
 }
