@@ -8,7 +8,7 @@
             <h2>Role Management</h2>
         </div>
         <div class="pull-right">
-        @can('role-create')
+            @can('role-create')
             <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
             @endcan
         </div>
@@ -52,5 +52,5 @@
 {!! $roles->render() !!}
 
 
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+<p class="text-center text-primary"><small>Improvement by Muhammad Luthfi Azzammi</small></p>
 @endsection

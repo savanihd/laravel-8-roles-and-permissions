@@ -37,9 +37,10 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                            <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
+                            @can('user-list')<li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>@endcan
+                            @can('permission-list')<li><a class="nav-link" href="{{ route('permissions.index') }}">Manage Permissions</a></li>@endcan
+                            @can('role-list')<li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>@endcan
+                            @can('product-list')<li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>@endcan
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

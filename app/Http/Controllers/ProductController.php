@@ -1,11 +1,12 @@
 <?php
     
 namespace App\Http\Controllers;
-    
+
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
     
-class ProductController extends Controller
+class ProductController extends AdminController
 { 
     /**
      * Display a listing of the resource.
@@ -26,6 +27,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $this->checkPermission('product-list'); // Is the same as in constructor
         $products = Product::latest()->paginate(5);
         return view('products.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -47,15 +49,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
-    
         Product::create($request->all());
-    
         return redirect()->route('products.index')
                         ->with('success','Product created successfully.');
     }
@@ -89,15 +85,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-         request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
-    
         $product->update($request->all());
-    
         return redirect()->route('products.index')
                         ->with('success','Product updated successfully');
     }
